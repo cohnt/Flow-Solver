@@ -24,6 +24,17 @@ public:
 		Node(Node*);
 		Node(Node*, T);
 		~Node();
+
+		bool deleteFirstChild();
+		bool deleteLastChild();
+		bool deleteNthChild(size_t n);
+
+		Node* getParent() const;
+
+		size_t numChildren() const;
+		Node* firstChild() const;
+		Node* lastChild() const;
+		Node* nthChild(size_t n) const;
 	};
 
 private:
@@ -43,18 +54,6 @@ public:
 	size_t height() const;
 
 	Node* getRoot() const;
-	Node* addChild(Node*, T);
-	
-	bool deleteFirstChild(Node*);
-	bool deleteLastChild(Node*);
-	bool deleteNthChild(Node*, size_t n);
-
-	Node* getParent(Node*) const;
-
-	size_t numChildren(Node*) const;
-	Node* firstChild(Node*) const;
-	Node* lastChild(Node*) const;
-	Node* nthChild(Node*, size_t n) const;
 };
 
 
