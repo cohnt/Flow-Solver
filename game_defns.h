@@ -26,7 +26,7 @@ namespace Colors {
 	};
 
 	const std::unordered_map<char, int> charToColor({
-		{'.', Colors::empty},
+		{' ', Colors::empty},
 		{'R', Colors::red},
 		{'B', Colors::blue},
 		{'Y', Colors::yellow},
@@ -45,7 +45,7 @@ namespace Colors {
 		{'p', Colors::pink}
 	});
 	const std::unordered_map<int, char> colorToChar({
-		{Colors::empty, '.'},
+		{Colors::empty, ' '},
 		{Colors::red, 'R'},
 		{Colors::blue, 'B'},
 		{Colors::yellow, 'Y'},
