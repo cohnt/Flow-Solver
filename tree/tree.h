@@ -13,6 +13,10 @@ public:
 		Node* parent;
 		T data;
 	public:
+		Node();
+		Node(T);
+		~Node();
+
 		T& operator*();
 	};
 
