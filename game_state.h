@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <string>
 #include "game_defns.h"
 
 class State {
@@ -13,7 +14,8 @@ private:
 		std::vector<Colors::ColorsEnum> row;
 
 	public:
-		StateHelper(size_t cols);
+		StateHelper(size_t);
+		void assignRow(std::string);
 		Colors::ColorsEnum& operator[](const size_t);
 		const Colors::ColorsEnum& operator[](const size_t) const;
 	};
@@ -22,6 +24,7 @@ private:
 
 public:
 	State(size_t, size_t);
+	State(size_t, size_t, std::vector<std::string>);
 	State::StateHelper& operator[](const size_t);
 	const State::StateHelper& operator[](const size_t) const;
 	void print() const;

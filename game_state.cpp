@@ -1,6 +1,19 @@
+#include <cassert>
 #include "game_state.h"
 
 State::StateHelper::StateHelper(size_t cols) : row(cols, Colors::empty) {}
+
+void State::StateHelper::assignRow(std::string line) {
+	assert(line.size() == row.size());
+	for(size_t i=0; i<line.size(); ++i) {
+		if(Colors::charToColor.find(line[i]) != Colors::charToColor.end()) {
+			row[i] = static_cast<Colors::ColorsEnum>(Colors::charToColor.at(line[i]));
+		}
+		else {
+			row[i] = Colors::empty;
+		}
+	}
+}
 
 Colors::ColorsEnum& State::StateHelper::operator[](const size_t index) {
 	//
@@ -13,6 +26,11 @@ const Colors::ColorsEnum& State::StateHelper::operator[](const size_t index) con
 }
 
 State::State(size_t rows, size_t cols) : board(rows, StateHelper(cols)) {}
+State::State(size_t rows, size_t cols, std::vector<std::string> lines) : board(rows, StateHelper(cols)) {
+	for(size_t i=0; i<rows; ++i) {
+		board[i].assignRow(lines[i]);
+	}
+}
 
 State::StateHelper& State::operator[](const size_t index) {
 	//
