@@ -112,14 +112,14 @@ typename Tree<T>::Node& Tree<T>::Node::operator=(const typename Tree<T>::Node & 
 //Add child with default value, and return a pointer to it
 template <typename T>
 typename Tree<T>::Node* Tree<T>::Node::addChild() {
-	children.emplace_back(new Node(this));
+	new Node(this);
 	return children.back();
 }
 
 //Add child with a given value, and return a pointer to it
 template <typename T>
 typename Tree<T>::Node* Tree<T>::Node::addChild(T t) {
-	children.emplace_back(new Node(this, t));
+	new Node(this, t);
 	return children.back();
 }
 
