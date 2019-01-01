@@ -114,5 +114,18 @@ int main() {
 	Tree<std::vector<int>> t3;
 	t3.setRoot(new Tree<std::vector<int>>::Node(std::vector<int>{1, 2, 3}));
 
+
+	//Test printing out a tree
+	Tree<int> t4;
+	t4.setRoot(new Tree<int>::Node(1));
+	t4.getRoot()->addChild(3);
+	auto temp = t4.getRoot()->addChild(4);
+	temp->addChild(100);
+	temp->addChild(101);
+	temp->addChild(43);
+	t4.getRoot()->addChild(6);
+	t4.getRoot()->addChild(7);
+	t4.print();
+
 	return 0;
 }
