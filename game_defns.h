@@ -6,6 +6,7 @@
 
 namespace Colors {
 	enum ColorsEnum : int {
+		empty,
 		red,
 		blue,
 		yellow,
@@ -25,6 +26,7 @@ namespace Colors {
 	};
 
 	const std::unordered_map<char, int> charToColor({
+		{'.', Colors::empty},
 		{'R', Colors::red},
 		{'B', Colors::blue},
 		{'Y', Colors::yellow},
@@ -43,6 +45,7 @@ namespace Colors {
 		{'p', Colors::pink}
 	});
 	const std::unordered_map<int, char> colorToChar({
+		{Colors::empty, '.'},
 		{Colors::red, 'R'},
 		{Colors::blue, 'B'},
 		{Colors::yellow, 'Y'},
@@ -61,6 +64,7 @@ namespace Colors {
 		{Colors::pink, 'p'}
 	});
 	const std::unordered_map<int, std::string> colorToTermCode({
+		{Colors::empty, "\033[0m"},
 		{Colors::red, "\033[91m"},
 		{Colors::blue, "\033[94m"},
 		{Colors::yellow, "\033[93m"},
