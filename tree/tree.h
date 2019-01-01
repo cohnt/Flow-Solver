@@ -77,15 +77,13 @@ Tree<T>::Node::Node(T t) : children(), parent(nullptr), datum(t) {
 //Child, default value constructor
 template <typename T>
 Tree<T>::Node::Node(Node* ptr) : children(), parent(ptr), datum() {
-	// Do nothing
-	//
+	parent->children.emplace_back(this);
 }
 
 //Child, given value constructor
 template <typename T>
 Tree<T>::Node::Node(Node* ptr, T t) : children(), parent(ptr), datum(t) {
-	// Do nothing
-	//
+	parent->children.emplace_back(this);
 }
 
 //Destructor
