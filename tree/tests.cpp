@@ -1,5 +1,6 @@
 #include "tree.h"
 #include <cassert>
+#include <vector>
 
 int main() {
 	//Test the various Node constructors available.
@@ -107,6 +108,11 @@ int main() {
 	//Test assigning a new root to a tree, adding some elements to it, etc.
 	Tree<int> t2;
 	t2.setRoot(new Tree<int>::Node(1));
+
+
+	//Test tree with a more complex object
+	Tree<std::vector<int>> t3;
+	t3.setRoot(new Tree<std::vector<int>>::Node(std::vector<int>{1, 2, 3}));
 
 	return 0;
 }
