@@ -25,6 +25,9 @@ public:
 		Node(Node*, T);
 		~Node();
 
+		Node* addChild();
+		Node* addChild(T);
+
 		bool deleteFirstChild();
 		bool deleteLastChild();
 		bool deleteNthChild(size_t n);
@@ -105,6 +108,20 @@ Tree<T>::Node::Node(const Tree<T>::Node & node) {}
 
 template <typename T>
 typename Tree<T>::Node& Tree<T>::Node::operator=(const typename Tree<T>::Node & node) {}
+
+//Add child with default value, and return a pointer to it
+template <typename T>
+typename Tree<T>::Node* Tree<T>::Node::addChild() {
+	children.emplace_back(new Node());
+	//
+}
+
+//Add child with a given value, and return a pointer to it
+template <typename T>
+typename Tree<T>::Node* Tree<T>::Node::addChild(T t) {
+	children.emplace_back(new Node(t));
+	//
+}
 
 /////////////////////////
 // Tree
