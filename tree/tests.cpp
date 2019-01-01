@@ -1,4 +1,5 @@
 #include "tree.h"
+#include <cassert>
 
 int main() {
 	//Test the various Node constructors available.
@@ -26,6 +27,24 @@ int main() {
 
 	//Run with valgrind to ensure no memory is leaked
 	delete n7;
+
+	//Test deleting children manually in various ways
+	Tree<int>::Node* n9 = new Tree<int>::Node(1);
+	n9->addChild(1);
+	n9->addChild(2);
+	n9->addChild(3);
+	n9->addChild(4);
+	Tree<int>::Node* n10 = n9->addChild(5);
+	n10->addChild(100);
+	n10->addChild(200);
+	n9->addChild(43);
+
+	n9->deleteFirstChild();
+	n9->deleteNthChild(2);
+	n9->deleteLastChild();
+
+	//Run with valgrind to ensure no memory is leaked
+	delete n9;
 
 	//Test the Tree constructor and destructor
 	Tree<int> t1;
