@@ -11,7 +11,7 @@ public:
 	private:
 		std::list<Node*> children;
 		Node* parent;
-		T data;
+		T datum;
 
 		Node(const Node &);
 		Node& operator=(const Node &);
@@ -55,5 +55,52 @@ public:
 	Node* lastChild(Node*) const;
 	Node* nthChild(Node*, size_t n) const;
 };
+
+
+/////////////////////////
+// Node
+/////////////////////////
+
+//Root, default value constructor
+template <typename T>
+Tree<T>::Node::Node() : children(), parent(nullptr), datum() {
+	// Do nothing
+	//
+}
+
+//Root, given value constructor
+template <typename T>
+Tree<T>::Node::Node(T t) : children(), parent(nullptr), datum(t) {
+	// Do nothing
+	//
+}
+
+//Child, default value constructor
+template <typename T>
+Tree<T>::Node::Node(Node* ptr) : children(), parent(ptr), datum() {
+	// Do nothing
+	//
+}
+
+//Child, given value constructor
+template <typename T>
+Tree<T>::Node::Node(Node* ptr, T t) : children(), parent(ptr), datum(t) {
+	// Do nothing
+	//
+}
+
+//Destructor
+template <typename T>
+Tree<T>::Node::~Node() {
+	//Recursively delete all children
+	while(!children.empty()) {
+		delete children.front(); //Delete the Node, freeing up the dynamic memory
+		children.pop_front(); //Remove the Node from children
+	}
+}
+
+/////////////////////////
+// Tree
+/////////////////////////
 
 #endif
