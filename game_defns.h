@@ -79,7 +79,7 @@ namespace Colors {
 		{Colors::pink, "\033[95m"}
 	});
 
-	const std::string reset = "\003[0m";
+	const std::string reset = "\033[0m";
 };
 
 #endif
