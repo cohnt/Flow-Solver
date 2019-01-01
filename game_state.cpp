@@ -1,3 +1,4 @@
+#include <vector>
 #include <iostream>
 #include <fstream>
 #include <cassert>
@@ -35,6 +36,23 @@ State::State(size_t rows, size_t cols, std::vector<std::string> lines) : board(r
 		board[i].assignRow(lines[i]);
 	}
 }
+State::State(std::string fname) : board(0, StateHelper(0)) {
+	std::ifstream in(fname.c_str());
+	int rows, cols;
+
+	in >> rows;
+	in >> cols;
+
+	std::vector<std::string> lines;
+	std::string line;
+	while(std::getline(in >> std::ws, line)) {
+		lines.push_back(line);
+	}
+
+	*this = State(rows, cols, lines);
+
+	in.close();
+}
 
 State::StateHelper& State::operator[](const size_t index) {
 	//
@@ -56,23 +74,6 @@ void State::print() const {
 	}
 }
 
-void State::readFromFile(std::string fname) {
-	std::ifstream in(fname.c_str());
-	int rows, cols;
-
-	in >> rows;
-	in >> cols;
-
-	std::vector<std::string> lines;
-	std::string line;
-	while(std::getline(in >> std::ws, line)) {
-		lines.push_back(line);
-	}
-
-	*this = State(rows, cols, lines);
-
-	in.close();
-}
 void State::writeToFile(std::string fname) const {
-	
+	//TODO
 }

@@ -9,23 +9,8 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
-	std::ifstream in(argv[1]);
-	int rows, cols;
-
-	in >> rows;
-	in >> cols;
-
-	std::vector<std::string> lines;
-	std::string line;
-	while(std::getline(in >> std::ws, line)) {
-		lines.push_back(line);
-	}
-
-	State state(rows, cols, lines);
-
+	State state(argv[1]);
 	state.print();
-
-	in.close();
 
 	return 0;
 }
