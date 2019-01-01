@@ -99,8 +99,14 @@ int main() {
 
 	delete n13;
 
+
 	//Test the Tree constructor and destructor
 	Tree<int> t1;
+
+
+	//Test assigning a new root to a tree, adding some elements to it, etc.
+	Tree<int> t2;
+	t2.setRoot(new Tree<int>::Node(1));
 
 	return 0;
 }
