@@ -57,6 +57,7 @@ public:
 	size_t height() const;
 
 	Node* getRoot() const;
+	void setRoot(Node*);
 };
 
 
@@ -283,6 +284,15 @@ template <typename T>
 typename Tree<T>::Node* Tree<T>::getRoot() const {
 	//
 	return root;
+}
+
+//Erase the current root Node, and assign root to a new Node
+template <typename T>
+void Tree<T>::setRoot(Tree<T>::Node* ptr) {
+	delete root;
+	root = nullptr;
+
+	root = ptr;
 }
 
 #endif
