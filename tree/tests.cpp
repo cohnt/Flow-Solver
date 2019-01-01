@@ -19,6 +19,7 @@ int main() {
 	delete n1;
 	delete n2;
 
+
 	//Test adding children to a node.
 	Tree<int>::Node* n7 = new Tree<int>::Node(1);
 	n7->addChild();
@@ -27,6 +28,7 @@ int main() {
 
 	//Run with valgrind to ensure no memory is leaked
 	delete n7;
+
 
 	//Test deleting children manually in various ways
 	Tree<int>::Node* n9 = new Tree<int>::Node(1);
@@ -39,12 +41,21 @@ int main() {
 	n10->addChild(200);
 	n9->addChild(43);
 
-	n9->deleteFirstChild();
-	n9->deleteNthChild(2);
-	n9->deleteLastChild();
+	assert(n9->deleteFirstChild() == true);
+	assert(n9->firstChild()->datum == 2);
+
+	assert(n9->deleteNthChild(2) == true);
+	assert(n9->nthChild(2)->datum == 5);
+
+	assert(n9->lastChild()->datum == 43);
+	assert(n9->deleteLastChild() == true);
+	assert(n9->lastChild()->datum == 5);
+
+	assert(n9->deleteNthChild(50) == false);
 
 	//Run with valgrind to ensure no memory is leaked
 	delete n9;
+
 
 	//Test the getParent method
 	Tree<int>::Node* n11 = new Tree<int>::Node(1);
@@ -52,6 +63,41 @@ int main() {
 
 	//Run with valgrind to ensure no memory is leaked
 	delete n11->getParent();
+
+
+	//Test accessing the first, last, and nth child of a node
+	Tree<int>::Node* n12 = new Tree<int>::Node();
+	n12->addChild(1);
+	n12->addChild(2);
+	n12->addChild(3);
+	n12->addChild(4);
+	n12->addChild(5);
+
+	assert(n12->firstChild()->datum == 1);
+	assert(n12->lastChild()->datum == 5);
+	assert(n12->nthChild(2)->datum == 3);
+	assert(n12->nthChild(5) == nullptr);
+	assert(n12->nthChild(43) == nullptr);
+
+	delete n12;
+
+
+	//Test child accessing and deleting for a node with no children
+	Tree<int>::Node* n13 = new Tree<int>::Node();
+
+	assert(n13->deleteFirstChild() == false);
+	assert(n13->deleteLastChild() == false);
+	assert(n13->deleteNthChild(0) == false);
+	assert(n13->deleteNthChild(1) == false);
+	assert(n13->deleteNthChild(5) == false);
+
+	assert(n13->firstChild() == nullptr);
+	assert(n13->lastChild() == nullptr);
+	assert(n13->nthChild(0) == nullptr);
+	assert(n13->nthChild(1) == nullptr);
+	assert(n13->nthChild(5) == nullptr);
+
+	delete n13;
 
 	//Test the Tree constructor and destructor
 	Tree<int> t1;
