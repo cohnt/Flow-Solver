@@ -165,6 +165,12 @@ bool Tree<T>::Node::deleteNthChild(size_t n) {
 	}
 }
 
+template <typename T>
+typename Tree<T>::Node* Tree<T>::Node::getParent() const {
+	//
+	return parent;
+}
+
 /////////////////////////
 // Tree
 /////////////////////////
