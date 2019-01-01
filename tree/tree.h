@@ -54,6 +54,7 @@ private:
 
 public:
 	Tree();
+	Tree(T);
 	~Tree();
 
 	size_t size() const;
@@ -61,6 +62,7 @@ public:
 
 	Node* getRoot() const;
 	void setRoot(Node*);
+	void setRoot(T);
 
 	void print() const;
 };
@@ -232,6 +234,13 @@ Tree<T>::Tree() : root(nullptr) {
 	//
 }
 
+//Constructor with initial element
+template <typename T>
+Tree<T>::Tree(T t) : root(new Node(t)) {
+	// Do nothing
+	//
+}
+
 //Destructor
 template <typename T>
 Tree<T>::~Tree() {
@@ -256,8 +265,10 @@ size_t Tree<T>::sizeHelper(Tree<T>::Node* ptr) const {
 
 	size_t total = 0;
 	const size_t childrenSize = ptr->children.size();
+	auto iter = ptr->children.begin();
 	for(size_t i=0; i<childrenSize; ++i) {
-		total += sizeHelper(ptr->children[i]);
+		total += sizeHelper(*iter);
+		++iter;
 	}
 	return total;
 }
@@ -278,8 +289,10 @@ size_t Tree<T>::heightHelper(Tree<T>::Node* ptr) const {
 
 	std::list<size_t> heights;
 	const size_t childrenSize = ptr->children.size();
+	auto iter = ptr->children.begin();
 	for(size_t i=0; i<childrenSize; ++i) {
-		heights.emplace_back(heightHelper(ptr->children[i]));
+		heights.emplace_back(heightHelper(*iter));
+		++iter;
 	}
 	return 1 + *(std::max_element(heights.begin(), heights.end()));
 }
@@ -298,6 +311,15 @@ void Tree<T>::setRoot(Tree<T>::Node* ptr) {
 	root = nullptr;
 
 	root = ptr;
+}
+
+//Erase the current root Node, and create a new root node with a given value
+template <typename T>
+void Tree<T>::setRoot(T t) {
+	delete root;
+	root = nullptr;
+
+	root = new Node(t);
 }
 
 //Print out the contents of a tree to the console, given that T can be

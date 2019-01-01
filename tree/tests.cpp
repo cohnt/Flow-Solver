@@ -102,30 +102,33 @@ int main() {
 
 
 	//Test the Tree constructor and destructor
-	Tree<int> t1;
+	Tree<int> t0;
+	Tree<int> t1(3);
 
 
 	//Test assigning a new root to a tree, adding some elements to it, etc.
 	Tree<int> t2;
 	t2.setRoot(new Tree<int>::Node(1));
+	Tree<int> t3;
+	t3.setRoot(3);
 
 
 	//Test tree with a more complex object
-	Tree<std::vector<int>> t3;
-	t3.setRoot(new Tree<std::vector<int>>::Node(std::vector<int>{1, 2, 3}));
+	Tree<std::vector<int>> t4;
+	t4.setRoot(new Tree<std::vector<int>>::Node(std::vector<int>{1, 2, 3}));
 
 
 	//Test printing out a tree
-	Tree<int> t4;
-	t4.setRoot(new Tree<int>::Node(1));
-	t4.getRoot()->addChild(3);
-	auto temp = t4.getRoot()->addChild(4);
+	Tree<int> t5;
+	t5.setRoot(new Tree<int>::Node(1));
+	t5.getRoot()->addChild(3);
+	auto temp = t5.getRoot()->addChild(4);
 	temp->addChild(100);
 	temp->addChild(101);
 	temp->addChild(43);
-	t4.getRoot()->addChild(6);
-	t4.getRoot()->addChild(7);
-	t4.print();
+	t5.getRoot()->addChild(6);
+	t5.getRoot()->addChild(7);
+	t5.print();
 
 	return 0;
 }
