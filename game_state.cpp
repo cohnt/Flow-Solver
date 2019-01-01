@@ -1,4 +1,8 @@
+#include <iostream>
+#include <fstream>
 #include <cassert>
+#include <string>
+
 #include "game_state.h"
 
 State::StateHelper::StateHelper(size_t cols) : row(cols, Colors::empty) {}
@@ -50,4 +54,25 @@ void State::print() const {
 		}
 		std::cout << std::endl;
 	}
+}
+
+void State::readFromFile(std::string fname) {
+	std::ifstream in(fname.c_str());
+	int rows, cols;
+
+	in >> rows;
+	in >> cols;
+
+	std::vector<std::string> lines;
+	std::string line;
+	while(std::getline(in >> std::ws, line)) {
+		lines.push_back(line);
+	}
+
+	*this = State(rows, cols, lines);
+
+	in.close();
+}
+void State::writeToFile(std::string fname) const {
+	
 }

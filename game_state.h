@@ -25,9 +25,14 @@ private:
 public:
 	State(size_t, size_t);
 	State(size_t, size_t, std::vector<std::string>);
+
 	State::StateHelper& operator[](const size_t);
 	const State::StateHelper& operator[](const size_t) const;
+
 	void print() const;
+
+	void readFromFile(std::string);
+	void writeToFile(std::string) const;
 };
 
 #endif
