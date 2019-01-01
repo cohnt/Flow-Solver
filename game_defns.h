@@ -6,77 +6,77 @@
 
 namespace Colors {
 	enum ColorsEnum : int {
-		red
-		blue
-		yellow
-		green
-		orange
-		cyan
-		magenta
-		maroon
-		purple
-		gray
-		white
-		bright_green
-		tan
-		dark_blue
-		dark_cyan
+		red,
+		blue,
+		yellow,
+		green,
+		orange,
+		cyan,
+		magenta,
+		maroon,
+		purple,
+		gray,
+		white,
+		bright_green,
+		tan,
+		dark_blue,
+		dark_cyan,
 		pink
 	};
 
 	const std::unordered_map<char, int> charToColor({
-		{R, red},
-		{B, blue},
-		{Y, yellow},
-		{G, green},
-		{O, orange},
-		{C, cyan},
-		{M, magenta},
-		{m, maroon},
-		{P, purple},
-		{A, gray},
-		{W, white},
-		{g, bright_green},
-		{T, tan},
-		{b, dark_blue},
-		{c, dark_cyan},
-		{p, pink}
+		{'R', Colors::red},
+		{'B', Colors::blue},
+		{'Y', Colors::yellow},
+		{'G', Colors::green},
+		{'O', Colors::orange},
+		{'C', Colors::cyan},
+		{'M', Colors::magenta},
+		{'m', Colors::maroon},
+		{'P', Colors::purple},
+		{'A', Colors::gray},
+		{'W', Colors::white},
+		{'g', Colors::bright_green},
+		{'T', Colors::tan},
+		{'b', Colors::dark_blue},
+		{'c', Colors::dark_cyan},
+		{'p', Colors::pink}
 	});
 	const std::unordered_map<int, char> colorToChar({
-		{red, R},
-		{blue, B},
-		{yellow, Y},
-		{green, G},
-		{orange, O},
-		{cyan, C},
-		{magenta, M},
-		{maroon, m},
-		{purple, P},
-		{gray, A},
-		{white, W},
-		{bright_green, g},
-		{tan, T},
-		{dark_blue, b},
-		{dark_cyan, c},
-		{pink, p}
+		{Colors::red, 'R'},
+		{Colors::blue, 'B'},
+		{Colors::yellow, 'Y'},
+		{Colors::green, 'G'},
+		{Colors::orange, 'O'},
+		{Colors::cyan, 'C'},
+		{Colors::magenta, 'M'},
+		{Colors::maroon, 'm'},
+		{Colors::purple, 'P'},
+		{Colors::gray, 'A'},
+		{Colors::white, 'W'},
+		{Colors::bright_green, 'g'},
+		{Colors::tan, 'T'},
+		{Colors::dark_blue, 'b'},
+		{Colors::dark_cyan, 'c'},
+		{Colors::pink, 'p'}
 	});
 	const std::unordered_map<int, std::string> colorToTermCode({
-		{red, "\033[31m"},
-		{blue, "\033[34m"},
-		{yellow, "\033[33m"},
-		{green, "\033[32m"},
-		{orange, "\033[1m\033[33m"},
-		{cyan, "\033[36m"},
-		{magenta, "\033[35m"},
-		{maroon, "\033[1m\033[31m"},
-		{purple, "\033[1m\033[35m"},
-		{gray, "\033[1m\033[37m"},
-		{white, "\033[37m"},
-		{bright_green, "\033[1m\033[32m"},
-		{tan, "\033[1m\033[33m"},
-		{dark_blue, "\033[1m\033[34m"},
-		{dark_cyan, "\033[1m\033[36m"},
-		{pink, "\033[1m\033[31m"}
+		{Colors::red, "\033[91m"},
+		{Colors::blue, "\033[94m"},
+		{Colors::yellow, "\033[93m"},
+		{Colors::green, "\033[32m"},
+		{Colors::orange, "\033[33m"},
+		{Colors::cyan, "\033[96m"},
+		{Colors::magenta, "\033[95m"},
+		{Colors::maroon, "\033[31m"},
+		{Colors::purple, "\033[35m"},
+		{Colors::gray, "\033[90m"},
+		{Colors::white, "\033[37m"},
+		{Colors::bright_green, "\033[92m"},
+		{Colors::tan, "\033[33m"},
+		{Colors::dark_blue, "\033[34m"},
+		{Colors::dark_cyan, "\033[36m"},
+		{Colors::pink, "\033[1m\033[31m"}
 	});
 
 	const std::string reset = "\003[0m";
