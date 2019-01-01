@@ -29,8 +29,11 @@ private:
 	size_t size;
 	size_t height;
 
+	Tree(const Tree &);
+	Tree& operator=(const Tree &);
+
 public:
-	Tree(T);
+	Tree();
 	~Tree();
 
 	size_t getSize() const;
