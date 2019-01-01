@@ -3,6 +3,7 @@
 
 #include <cstddef>
 #include <list>
+#include <algorithm>
 
 template <typename T> class Tree {
 public:
@@ -27,18 +28,19 @@ public:
 
 private:
 	Node* root;
-	size_t size;
-	size_t height;
 
 	Tree(const Tree &);
 	Tree& operator=(const Tree &);
+
+	size_t sizeHelper(Node*) const;
+	size_t heightHelper(Node*) const;
 
 public:
 	Tree();
 	~Tree();
 
-	size_t getSize() const;
-	size_t getHeight() const;
+	size_t size() const;
+	size_t height() const;
 
 	Node* getRoot() const;
 	Node* addChild(Node*, T);
@@ -111,7 +113,7 @@ typename Tree<T>::Node& Tree<T>::Node::operator=(const typename Tree<T>::Node & 
 
 //Constructor
 template <typename T>
-Tree<T>::Tree() : root(nullptr), size(0), height(0) {
+Tree<T>::Tree() : root(nullptr) {
 	// Do nothing
 	//
 }
@@ -121,6 +123,50 @@ template <typename T>
 Tree<T>::~Tree() {
 	delete root; //Because root is dynamically-allocated, we must explicitly call delete
 	root = nullptr;
+}
+
+//Get the size of the tree.
+template <typename T>
+size_t Tree<T>::size() const {
+	//
+	return 1+sizeHelper(root);
+}
+
+//Returns the total number of descendants from ptr. The size of the tree rooted at ptr is thus
+//sizeHelper(ptr)+1.
+template <typename T>
+size_t Tree<T>::sizeHelper(Tree<T>::Node* ptr) const {
+	if(ptr == nullptr) {
+		return 0;
+	}
+
+	size_t total = 0;
+	const size_t childrenSize = ptr->children.size();
+	for(size_t i=0; i<childrenSize; ++i) {
+		total += sizeHelper(ptr->children[i]);
+	}
+	return total;
+}
+
+//Get the height of the tree.
+template <typename T>
+size_t Tree<T>::height() const {
+	//
+	return heightHelper(root);
+}
+
+template <typename T>
+size_t Tree<T>::heightHelper(Tree<T>::Node* ptr) const {
+	if(ptr == nullptr) {
+		return 0;
+	}
+
+	std::list<size_t> heights;
+	const size_t childrenSize = ptr->children.size();
+	for(size_t i=0; i<childrenSize; ++i) {
+		heights.emplace_back(heightHelper(ptr->children[i]));
+	}
+	return 1 + *(std::max_element(heights.begin(), heights.end()));
 }
 
 #endif
