@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <list>
 #include <algorithm>
+#include <iostream>
 
 template <typename T> class Tree {
 public:
@@ -49,6 +50,8 @@ private:
 	size_t sizeHelper(Node*) const;
 	size_t heightHelper(Node*) const;
 
+	void printHelper(Node*, size_t) const;
+
 public:
 	Tree();
 	~Tree();
@@ -58,6 +61,8 @@ public:
 
 	Node* getRoot() const;
 	void setRoot(Node*);
+
+	void print() const;
 };
 
 
@@ -293,6 +298,38 @@ void Tree<T>::setRoot(Tree<T>::Node* ptr) {
 	root = nullptr;
 
 	root = ptr;
+}
+
+//Print out the contents of a tree to the console, given that T can be
+//sent to cout.
+template <typename T>
+void Tree<T>::print() const {
+	if(root == nullptr) {
+		std::cout << "." << std::endl;
+		return;
+	}
+	else {
+		std::cout << root->datum << std::endl;
+		printHelper(root, 0);
+	}
+}
+
+template <typename T>
+void Tree<T>::printHelper(Tree<T>::Node* ptr, size_t numIndents) const {
+	const size_t childrenSize = ptr->numChildren();
+	for(size_t i=0; i<childrenSize; ++i) {
+		for(size_t j=0; j<numIndents; ++j) {
+			std::cout << "    ";
+		}
+		if(i+1 == childrenSize) {
+			std::cout << "\u2514";
+		}
+		else {
+			std::cout << "\u251c";
+		}
+		std::cout << "\u2500\u2500 " << ptr->nthChild(i)->datum << std::endl;
+		printHelper(ptr->nthChild(i), numIndents+1);
+	}
 }
 
 #endif
