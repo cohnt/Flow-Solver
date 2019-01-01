@@ -30,14 +30,14 @@ public:
 
 		bool deleteFirstChild();
 		bool deleteLastChild();
-		bool deleteNthChild(size_t n);
+		bool deleteNthChild(size_t);
 
 		Node* getParent() const;
 
 		size_t numChildren() const;
 		Node* firstChild() const;
 		Node* lastChild() const;
-		Node* nthChild(size_t n) const;
+		Node* nthChild(size_t) const;
 	};
 
 private:
@@ -165,10 +165,54 @@ bool Tree<T>::Node::deleteNthChild(size_t n) {
 	}
 }
 
+//Get the parent pointer of a node. Note that this will return nullptr if the Node
+//is a root Node
 template <typename T>
 typename Tree<T>::Node* Tree<T>::Node::getParent() const {
 	//
 	return parent;
+}
+
+//Various functions relating to accessing the children of the Node. If the child
+//requested doesn't exist, it will return a nullptr.
+template <typename T>
+size_t Tree<T>::Node::numChildren() const {
+	//
+	return children.size();
+}
+
+template <typename T>
+typename Tree<T>::Node* Tree<T>::Node::firstChild() const {
+	if(children.empty()) {
+		return nullptr;
+	}
+	else {
+		return children.front();
+	}
+}
+
+template <typename T>
+typename Tree<T>::Node* Tree<T>::Node::lastChild() const {
+	if(children.empty()) {
+		return nullptr;
+	}
+	else {
+		return children.back();
+	}
+}
+
+template <typename T>
+typename Tree<T>::Node* Tree<T>::Node::nthChild(size_t n) const {
+	if(n >= children.size()) {
+		return nullptr;
+	}
+	else {
+		auto iter = children.begin();
+		for(size_t i=0; i<n; ++i) {
+			++iter;
+		}
+		return *iter;
+	}
 }
 
 /////////////////////////
