@@ -155,6 +155,7 @@ size_t Tree<T>::height() const {
 	return heightHelper(root);
 }
 
+//Returns the height of the tree rooted at ptr
 template <typename T>
 size_t Tree<T>::heightHelper(Tree<T>::Node* ptr) const {
 	if(ptr == nullptr) {
@@ -167,6 +168,13 @@ size_t Tree<T>::heightHelper(Tree<T>::Node* ptr) const {
 		heights.emplace_back(heightHelper(ptr->children[i]));
 	}
 	return 1 + *(std::max_element(heights.begin(), heights.end()));
+}
+
+//Return a ptr to the root node.
+template <typename T>
+Tree<T>::Node* Tree<T>::getRoot() const {
+	//
+	return root;
 }
 
 #endif
