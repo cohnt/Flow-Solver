@@ -171,7 +171,7 @@ size_t Tree<T>::heightHelper(Tree<T>::Node* ptr) const {
 
 //Return a ptr to the root node.
 template <typename T>
-Tree<T>::Node* Tree<T>::getRoot() const {
+typename Tree<T>::Node* Tree<T>::getRoot() const {
 	//
 	return root;
 }
