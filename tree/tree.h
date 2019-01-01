@@ -19,6 +19,8 @@ public:
 	public:
 		Node();
 		Node(T);
+		Node(Node*);
+		Node(Node*, T);
 		~Node();
 
 		T& operator*();
