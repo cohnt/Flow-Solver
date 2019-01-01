@@ -46,6 +46,13 @@ int main() {
 	//Run with valgrind to ensure no memory is leaked
 	delete n9;
 
+	//Test the getParent method
+	Tree<int>::Node* n11 = new Tree<int>::Node(1);
+	n11 = n11->addChild(2);
+
+	//Run with valgrind to ensure no memory is leaked
+	delete n11->getParent();
+
 	//Test the Tree constructor and destructor
 	Tree<int> t1;
 
