@@ -18,6 +18,15 @@ int main() {
 	delete n1;
 	delete n2;
 
+	//Test adding children to a node.
+	Tree<int>::Node* n7 = new Tree<int>::Node(1);
+	n7->addChild();
+	Tree<int>::Node* n8 = n7->addChild(5);
+	n8->addChild(10);
+
+	//Run with valgrind to ensure no memory is leaked
+	delete n7;
+
 	//Test the Tree constructor and destructor
 	Tree<int> t1;
 
