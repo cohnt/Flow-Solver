@@ -1,5 +1,7 @@
 tree/example
-tree/tests
 tree/.vscode
+
 tools/print_state_file
+
 tests/test_colors
+tests/test_tree_lib
