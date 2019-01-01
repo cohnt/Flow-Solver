@@ -99,6 +99,13 @@ Tree<T>::Node::~Node() {
 	}
 }
 
+//Copy constructor and assignment operator. These are private so that they can't be used.
+template <typename T>
+Tree<T>::Node::Node(const Tree<T>::Node & node) {}
+
+template <typename T>
+typename Tree<T>::Node& Tree<T>::Node::operator=(const typename Tree<T>::Node & node) {}
+
 /////////////////////////
 // Tree
 /////////////////////////
