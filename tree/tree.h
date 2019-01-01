@@ -12,6 +12,10 @@ public:
 		std::list<Node*> children;
 		Node* parent;
 		T data;
+
+		Node(const Node &);
+		Node& operator=(const Node &);
+
 	public:
 		Node();
 		Node(T);
