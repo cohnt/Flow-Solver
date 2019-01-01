@@ -75,5 +75,25 @@ void State::print() const {
 }
 
 void State::writeToFile(std::string fname) const {
-	//TODO
+	std::ofstream out(fname.c_str());
+
+	size_t rows = this->rows();
+	size_t cols = this->cols();
+
+	out << rows << ' ' << cols << '\n' << '\n';
+	for(size_t i=0; i<rows; ++i) {
+		for(size_t j=0; j<cols; ++j) {
+			out << Colors::colorToChar.at((*this)[i][j]);
+		}
+		out << '\n';
+	}
+}
+
+size_t State::rows() const {
+	//
+	return board.size();
+}
+size_t State::cols() const {
+	//
+	return board[0].row.size();
 }
