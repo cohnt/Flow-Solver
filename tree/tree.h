@@ -11,19 +11,18 @@ public:
 	private:
 		std::list<Node*> children;
 		Node* parent;
-		T datum;
 
 		Node(const Node &);
 		Node& operator=(const Node &);
 
 	public:
+		T datum;
+
 		Node();
 		Node(T);
 		Node(Node*);
 		Node(Node*, T);
 		~Node();
-
-		T& operator*();
 	};
 
 private:
