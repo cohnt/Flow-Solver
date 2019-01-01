@@ -78,12 +78,14 @@ Tree<T>::Node::Node(T t) : children(), parent(nullptr), datum(t) {
 template <typename T>
 Tree<T>::Node::Node(Node* ptr) : children(), parent(ptr), datum() {
 	parent->children.emplace_back(this);
+	//
 }
 
 //Child, given value constructor
 template <typename T>
 Tree<T>::Node::Node(Node* ptr, T t) : children(), parent(ptr), datum(t) {
 	parent->children.emplace_back(this);
+	//
 }
 
 //Destructor
@@ -106,5 +108,19 @@ typename Tree<T>::Node& Tree<T>::Node::operator=(const typename Tree<T>::Node & 
 /////////////////////////
 // Tree
 /////////////////////////
+
+//Constructor
+template <typename T>
+Tree<T>::Tree() : root(nullptr), size(0), height(0) {
+	// Do nothing
+	//
+}
+
+//Destructor
+template <typename T>
+Tree<T>::~Tree() {
+	delete root; //Because root is dynamically-allocated, we must explicitly call delete
+	root = nullptr;
+}
 
 #endif
