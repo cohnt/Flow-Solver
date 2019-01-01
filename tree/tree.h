@@ -123,6 +123,48 @@ typename Tree<T>::Node* Tree<T>::Node::addChild(T t) {
 	return children.back();
 }
 
+//Delete children from a Node in various ways. Return true if successful, or false if
+//the child does not exist.
+template <typename T>
+bool Tree<T>::Node::deleteFirstChild() {
+	if(children.empty()) {
+		return false;
+	}
+	else {
+		delete children.front();
+		children.pop_front();
+		return true;
+	}
+}
+
+template <typename T>
+bool Tree<T>::Node::deleteLastChild() {
+	if(children.empty()) {
+		return false;
+	}
+	else {
+		delete children.back();
+		children.pop_back();
+		return true;
+	}
+}
+
+template <typename T>
+bool Tree<T>::Node::deleteNthChild(size_t n) {
+	if(n >= children.size()) {
+		return false;
+	}
+	else {
+		auto iter = children.begin();
+		for(size_t i=0; i<n; ++i) {
+			++iter;
+		}
+		delete *iter;
+		children.erase(iter);
+		return true;
+	}
+}
+
 /////////////////////////
 // Tree
 /////////////////////////
