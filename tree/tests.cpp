@@ -18,5 +18,8 @@ int main() {
 	delete n1;
 	delete n2;
 
+	//Test the Tree constructor and destructor
+	Tree<int> t1;
+
 	return 0;
 }
