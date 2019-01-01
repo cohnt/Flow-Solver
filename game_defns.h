@@ -76,7 +76,7 @@ namespace Colors {
 		{Colors::tan, "\033[33m"},
 		{Colors::dark_blue, "\033[34m"},
 		{Colors::dark_cyan, "\033[36m"},
-		{Colors::pink, "\033[1m\033[31m"}
+		{Colors::pink, "\033[95m"}
 	});
 
 	const std::string reset = "\003[0m";
