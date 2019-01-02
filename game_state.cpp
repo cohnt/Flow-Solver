@@ -87,6 +87,8 @@ void State::writeToFile(std::string fname) const {
 		}
 		out << '\n';
 	}
+
+	out.close();
 }
 
 size_t State::rows() const {
