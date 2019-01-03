@@ -8,11 +8,7 @@
 
 int main(int argc, char** argv) {
 	if(argc != 3) {
-		std::cout << "Usage: ./solve [puzzle file] [algorithm]" << std::endl;
-		std::cout << "Available algorithms:" << std::endl;
-		for(auto iter = AlgorithmNames::algorithmNamesToString.begin(); iter != AlgorithmNames::algorithmNamesToString.end(); ++iter) {
-			std::cout << '\t' << iter->second << std::endl;
-		}
+		std::cout << "Usage: ./solve [puzzle file] [config file]" << std::endl;
 		exit(1);
 	}
 
