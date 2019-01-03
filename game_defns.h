@@ -86,4 +86,15 @@ namespace Colors {
 	const std::string reset = "\033[0m";
 };
 
+namespace AlgorithmNames {
+	enum : int {
+		basic_search
+	};
+
+	const std::unordered_map<int, std::string> algorithmNamesToString({
+		{AlgorithmNames::basic_search, "basic_search"}
+	});
+};
+
+
 #endif
