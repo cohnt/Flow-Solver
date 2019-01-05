@@ -86,19 +86,19 @@ namespace Colors {
 	const std::string reset = "\033[0m";
 };
 
-namespace AlgorithmNames {
+namespace Algorithms {
 	enum AlgorithmsEnum : int {
 		bfs,
 		dfs
 	};
 
-	const std::unordered_map<AlgorithmNames::AlgorithmsEnum, std::string> algorithmNamesToString({
-		{AlgorithmNames::bfs, "bfs"},
-		{AlgorithmNames::dfs, "dfs"}
+	const std::unordered_map<Algorithms::AlgorithmsEnum, std::string> algorithmNamesToString({
+		{Algorithms::bfs, "bfs"},
+		{Algorithms::dfs, "dfs"}
 	});
-	const std::unordered_map<std::string, AlgorithmNames::AlgorithmsEnum> stringToAlgorithmNames({
-		{"bfs", AlgorithmNames::bfs},
-		{"dfs", AlgorithmNames::dfs}
+	const std::unordered_map<std::string, Algorithms::AlgorithmsEnum> stringToAlgorithmNames({
+		{"bfs", Algorithms::bfs},
+		{"dfs", Algorithms::dfs}
 	});
 };
 

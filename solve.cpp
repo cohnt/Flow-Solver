@@ -10,7 +10,7 @@
 #include "algs/dfs.h"
 
 struct ConfigStruct {
-	AlgorithmNames::AlgorithmsEnum alg;
+	Algorithms::AlgorithmsEnum alg;
 };
 
 bool checkFormat(const State &);
@@ -36,6 +36,7 @@ int main(int argc, char** argv) {
 
 	ConfigStruct config;
 	loadConfigFile(config, argv[2]);
+	std::cout << "Using algorithm " << Algorithms::algorithmNamesToString.at(config.alg) << std::endl;
 
 	startState->print();
 
@@ -43,6 +44,22 @@ int main(int argc, char** argv) {
 	// for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
 	// 	std::cout << Colors::colorToChar.at(*iter) << std::endl;
 	// }
+
+	State* endState;
+
+	switch(config.alg) {
+		case Algorithms::dfs:
+			endState = dfs::solve(startState);
+			break;
+		default:
+			exit(1); //TODO
+			break;
+	};
+
+	std::cout << std::endl;
+	endState->print();
+
+	delete endState;
 
 	return 0;
 }
@@ -90,5 +107,5 @@ void loadConfigFile(ConfigStruct & config, const std::string & fname) {
 	std::string algName;
 	in >> algName;
 
-	config.alg = AlgorithmNames::stringToAlgorithmNames.at(algName);
+	config.alg = Algorithms::stringToAlgorithmNames.at(algName);
 }
