@@ -24,7 +24,7 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
-	
+	Tree<State> tree(startState);
 
 	startState.print();
 
@@ -33,15 +33,18 @@ int main(int argc, char** argv) {
 
 //Check that a state object is valid for starting out.
 bool checkFormat(const State & state) {
+	//The number of squares of a given color
 	std::unordered_map<Colors::ColorsEnum, int> counts;
 
+	//Zero-initialize every color
 	for(auto iter = Colors::charToColor.begin(); iter != Colors::charToColor.end(); ++iter) {
 		counts[static_cast<Colors::ColorsEnum>(iter->second)] = 0;
 	}
 
-	size_t rows = state.rows();
-	size_t cols = state.cols();
+	size_t rows = state.getRows();
+	size_t cols = state.getCols();
 
+	//Count up how many there are of each colored square (except empty squares, of course)
 	for(size_t i=0; i<rows; ++i) {
 		for(size_t j=0; j<cols; ++j) {
 			Colors::ColorsEnum color = state[i][j];
@@ -51,6 +54,7 @@ bool checkFormat(const State & state) {
 		}
 	}
 
+	//Check that a color is either not present, or has exactly 2 squares.
 	for(auto iter = counts.begin(); iter != counts.end(); ++iter) {
 		if(iter->second != 0 && iter->second != 2) {
 			std::cout << "Error: found " << (iter->second) << " squares with color "
