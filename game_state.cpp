@@ -39,13 +39,15 @@ void State::deleteBoard() {
 bool State::isEndpoint(size_t row, size_t col) const {
 	short numNeighbors = 0;
 
-	if(row-1 >= 0) {
+	// std::cout << "Checking if " << row << "," << col << " is an endpoint." << std::endl;
+
+	if(row > 0) {
 		numNeighbors += (board[row][col] == board[row-1][col]);
 	}
 	if(row+1 < rows) {
 		numNeighbors += (board[row][col] == board[row+1][col]);
 	}
-	if(col-1 >= 0) {
+	if(col > 0) {
 		numNeighbors += (board[row][col] == board[row][col-1]);
 	}
 	if(col+1 < cols) {
@@ -258,7 +260,7 @@ std::vector<State*> State::next() const {
 		std::array<size_t, 2> point = *iter;
 
 		//Check neighboring tiles, and add if possible
-		if(point[0]-1 >= 0) {
+		if(point[0] > 0) {
 			if(board[point[0]-1][point[1]] == Colors::empty) {
 				State* state = new State(*this);
 				state->at(point[0]-1, point[1]) = this->at(point);
@@ -272,7 +274,7 @@ std::vector<State*> State::next() const {
 				states.push_back(state);
 			}
 		}
-		if(point[1]-1 >= 0) {
+		if(point[1] > 0) {
 			if(board[point[0]][point[1]-1] == Colors::empty) {
 				State* state = new State(*this);
 				state->at(point[0], point[1]-1) = this->at(point);
