@@ -17,9 +17,9 @@ namespace dfs {
 			State* foo = states.top();
 			states.pop();
 
-			std::cout << /*"\033[2J" << */"Checking:\n\n";
-			// usleep(1000*500);
-			foo->print();
+			// std::cout << "\033[2J" << "Checking:\n\n";
+			// foo->print();
+			// usleep(1000*100);
 			if(foo->isSolution()) {
 				while(!states.empty()) {
 					State* top = states.top();

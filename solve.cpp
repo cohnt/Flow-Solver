@@ -7,7 +7,9 @@
 #include "game_defns.h"
 #include "game_state.h"
 #include "tree/tree.h"
+
 #include "algs/dfs.h"
+#include "algs/bfs.h"
 
 struct ConfigStruct {
 	Algorithms::AlgorithmsEnum alg;
@@ -45,11 +47,14 @@ int main(int argc, char** argv) {
 	// 	std::cout << Colors::colorToChar.at(*iter) << std::endl;
 	// }
 
-	State* endState;
+	State* endState = nullptr;
 
 	switch(config.alg) {
 		case Algorithms::dfs:
 			endState = dfs::solve(startState);
+			break;
+		case Algorithms::bfs:
+			endState = bfs::solve(startState);
 			break;
 		default:
 			exit(1); //TODO
