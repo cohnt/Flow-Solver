@@ -16,23 +16,21 @@ int main(int argc, char** argv) {
 		exit(1);
 	}
 
-	State startState(argv[1]);
+	State* startState = new State(argv[1]);
 	std::cout << "Successfully opened puzzle " << argv[1] << std::endl;
 
-	startState.initializeColorStarts();
+	startState->initializeColorStarts();
 
 	// size_t rows = startState.rows();
 	// size_t cols = startState.cols();
 
-	if(!checkFormat(startState)) {
+	if(!checkFormat(*startState)) {
 		exit(1);
 	}
 
-	Tree<State> tree(startState);
+	startState->print();
 
-	startState.print();
-
-	// auto colors = startState.getColors();
+	// auto colors = startState->getColors();
 	// for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
 	// 	std::cout << Colors::colorToChar.at(*iter) << std::endl;
 	// }
