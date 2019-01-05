@@ -67,8 +67,12 @@ void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
 	for(size_t i=0; i<rows; ++i) {
 		for(size_t j=0; j<cols; ++j) {
 			if(board[i][j] != Colors::empty && isEndpoint(i, j)) {
-				if(!(colorStarts[board[i][j]][0] != i && colorStarts[board[i][j]][1] != j)
-					&& !(colorEnds[board[i][j]][0] != i && colorEnds[board[i][j]][1] != j)) {
+				std::array<size_t, 2> start = colorStarts[board[i][j]];
+				std::array<size_t, 2> end = colorEnds[board[i][j]];
+				std::array<size_t, 2> point;
+				point[0] = i;
+				point[1] = j;
+				if(point != start && point != end) {
 					foundEndpoint[board[i][j]] = true;
 					endpoints.push_back(std::array<size_t, 2>{i, j});
 				}
@@ -236,6 +240,11 @@ void State::writeToFile(const std::string & fname) const {
 	}
 
 	out.close();
+}
+void State::printColorStarts() const {
+	for(auto iter = colorStarts.begin(); iter != colorStarts.end(); ++iter) {
+		std::cout << iter->first << "/" << Colors::colorToChar.at(iter->first) << ": " << (iter->second)[0] << "," << (iter->second)[1] << "\n";
+	}
 }
 
 Colors::ColorsEnum & State::at(size_t row, size_t col) {

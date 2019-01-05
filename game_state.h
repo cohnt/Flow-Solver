@@ -42,6 +42,7 @@ public:
 
 	void print() const;
 	void writeToFile(const std::string &) const;
+	void printColorStarts() const;
 
 	Colors::ColorsEnum & at(size_t, size_t);
 	const Colors::ColorsEnum & at(size_t, size_t) const;
