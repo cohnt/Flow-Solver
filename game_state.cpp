@@ -102,6 +102,15 @@ size_t State::getCols() const {
 	//
 	return cols;
 }
+size_t State::numEmpty() const {
+	size_t total = 0;
+	for(size_t i=0; i<rows; ++i) {
+		for(size_t j=0; j<cols; ++j) {
+			total += (board[i][j] == Colors::empty);
+		}
+	}
+	return total;
+}
 
 void State::print() const {
 	for(size_t i=0; i<rows; ++i) {

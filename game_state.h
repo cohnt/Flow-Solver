@@ -26,6 +26,7 @@ public:
 
 	size_t getRows() const;
 	size_t getCols() const;
+	size_t numEmpty() const;
 
 	void print() const;
 	void writeToFile(const std::string &) const;
