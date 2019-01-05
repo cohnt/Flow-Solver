@@ -3,12 +3,15 @@
 #include <fstream>
 #include <cassert>
 #include <string>
+#include <unordered_set>
+#include <unordered_map>
+#include <array>
 
 #include "game_state.h"
 
 std::unordered_set<Colors::ColorsEnum> State::boardColors;
-std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> State::colorStarts;
-std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> State::colorEnds;
+std::unordered_map<Colors::ColorsEnum, std::array<size_t, 2>> State::colorStarts;
+std::unordered_map<Colors::ColorsEnum, std::array<size_t, 2>> State::colorEnds;
 
 void State::makeEmptyBoard(size_t rows_in, size_t cols_in) {
 	//Delete the old board if it exists
@@ -31,6 +34,51 @@ void State::deleteBoard() {
 		}
 	delete[] board;
 	board = nullptr;
+}
+bool State::isEndpoint(size_t row, size_t col) const {
+	short numNeighbors = 0;
+
+	if(row-1 >= 0) {
+		numNeighbors += (board[row][col] == board[row-1][col]);
+	}
+	if(row+1 < rows) {
+		numNeighbors += (board[row][col] == board[row+1][col]);
+	}
+	if(col-1 >= 0) {
+		numNeighbors += (board[row][col] == board[row][col-1]);
+	}
+	if(col+1 < cols) {
+		numNeighbors += (board[row][col] == board[row][col+1]);
+	}
+
+	return numNeighbors == 0 || numNeighbors == 1;
+}
+void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
+	std::unordered_map<Colors::ColorsEnum, bool> foundEndpoint;
+	auto colors = getColors();
+	for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
+		auto color = *iter;
+		foundEndpoint[color] = false;
+	}
+
+	for(size_t i=0; i<rows; ++i) {
+		for(size_t j=0; j<cols; ++j) {
+			if(board[i][j] != Colors::empty
+				&& !(colorStarts[board[i][j]][0] != i && colorStarts[board[i][j]][1] != j)
+				&& !(colorEnds[board[i][j]][0] != i && colorEnds[board[i][j]][1] != j)
+				&& isEndpoint(i, j)) {
+				foundEndpoint[board[i][j]] = true;
+				endpoints.push_back(std::array<size_t, 2>{i, j});
+			}
+		}
+	}
+
+	for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
+		auto color = *iter;
+		if(!foundEndpoint[color]) {
+			endpoints.push_back(colorStarts[color]);
+		}
+	}
 }
 
 State::State(size_t rows_in, size_t cols_in, std::vector<std::string> lines) : rows(rows_in), cols(cols_in), board(nullptr) {
@@ -117,11 +165,11 @@ void State::initializeColorStarts() {
 			color = board[i][j];
 			if(color != Colors::empty) {
 				if(colorStarts.find(color) == colorStarts.end()) {
-					colorStarts[color] = std::pair<size_t, size_t>(i, j);
+					colorStarts[color] = std::array<size_t, 2>{i, j};
 					// std::cout << Colors::colorToChar.at(color) << " starts at " << i << "," << j << std::endl;
 				}
 				else {
-					colorEnds[color] = std::pair<size_t, size_t>(i, j);
+					colorEnds[color] = std::array<size_t, 2>{i, j};
 					// std::cout << Colors::colorToChar.at(color) << " ends at " << i << "," << j << std::endl;
 				}
 			}
@@ -182,12 +230,62 @@ const Colors::ColorsEnum & State::at(size_t row, size_t col) const {
 	const Colors::ColorsEnum & foo = board[row][col];
 	return foo;
 }
+Colors::ColorsEnum & State::at(const std::array<size_t, 2> & point) {
+	Colors::ColorsEnum & foo = board[point[0]][point[1]];
+	return foo;
+}
+const Colors::ColorsEnum & State::at(const std::array<size_t, 2> & point) const {
+	const Colors::ColorsEnum & foo = board[point[0]][point[1]];
+	return foo;
+}
 
-Colors::ColorsEnum* State::operator[](const size_t row) {
-	Colors::ColorsEnum* bar = board[row];
+Colors::ColorsEnum* & State::operator[](const size_t row) {
+	Colors::ColorsEnum* & bar = board[row];
 	return bar;
 }
-Colors::ColorsEnum* const State::operator[](const size_t row) const {
-	Colors::ColorsEnum* const bar = board[row];
+Colors::ColorsEnum* const & State::operator[](const size_t row) const {
+	Colors::ColorsEnum* const & bar = board[row];
 	return bar;
+}
+
+std::vector<State*> State::next() const {
+	std::vector<State*> states;
+	std::vector<std::array<size_t, 2>> endpoints;
+	getEndpoints(endpoints);
+
+	for(auto iter = endpoints.begin(); iter != endpoints.end(); ++iter) {
+		std::array<size_t, 2> point = *iter;
+
+		//Check neighboring tiles, and add if possible
+		if(point[0]-1 >= 0) {
+			if(board[point[0]-1][point[1]] == Colors::empty) {
+				State* state = new State(*this);
+				state->at(point[0]-1, point[1]) = this->at(point);
+				states.push_back(state);
+			}
+		}
+		if(point[0]+1 < rows) {
+			if(board[point[0]+1][point[1]] == Colors::empty) {
+				State* state = new State(*this);
+				state->at(point[0]+1, point[1]) = this->at(point);
+				states.push_back(state);
+			}
+		}
+		if(point[1]-1 >= 0) {
+			if(board[point[0]][point[1]-1] == Colors::empty) {
+				State* state = new State(*this);
+				state->at(point[0], point[1]-1) = this->at(point);
+				states.push_back(state);
+			}
+		}
+		if(point[1]+1 < cols) {
+			if(board[point[0]][point[1]+1] == Colors::empty) {
+				State* state = new State(*this);
+				state->at(point[0], point[1]+1) = this->at(point);
+				states.push_back(state);
+			}
+		}
+	}
+
+	return states;
 }

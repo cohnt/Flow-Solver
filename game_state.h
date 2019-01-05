@@ -7,6 +7,7 @@
 #include <string>
 #include <unordered_set>
 #include <unordered_map>
+#include <array>
 #include "game_defns.h"
 
 class State {
@@ -14,11 +15,15 @@ private:
 	size_t rows;
 	size_t cols;
 	Colors::ColorsEnum** board;
+	
 	void makeEmptyBoard(size_t, size_t);
 	void deleteBoard();
+	bool isEndpoint(size_t, size_t) const;
+	void getEndpoints(std::vector<std::array<size_t, 2>> &) const;
+
 	static std::unordered_set<Colors::ColorsEnum> boardColors;
-	static std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> colorStarts;
-	static std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> colorEnds;
+	static std::unordered_map<Colors::ColorsEnum, std::array<size_t, 2>> colorStarts;
+	static std::unordered_map<Colors::ColorsEnum, std::array<size_t, 2>> colorEnds;
 
 public:
 	State(size_t, size_t, std::vector<std::string>);
@@ -40,9 +45,13 @@ public:
 
 	Colors::ColorsEnum & at(size_t, size_t);
 	const Colors::ColorsEnum & at(size_t, size_t) const;
+	Colors::ColorsEnum & at(const std::array<size_t, 2> &);
+	const Colors::ColorsEnum & at(const std::array<size_t, 2> &) const;
 
-	Colors::ColorsEnum* operator[](const size_t);
-	Colors::ColorsEnum* const operator[](const size_t) const;
+	Colors::ColorsEnum* & operator[](const size_t);
+	Colors::ColorsEnum* const & operator[](const size_t) const;
+
+	std::vector<State*> next() const;
 };
 
 #endif
