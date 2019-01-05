@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <unordered_map>
 #include <array>
+#include <algorithm>
 
 #include "game_state.h"
 
@@ -288,4 +289,23 @@ std::vector<State*> State::next() const {
 	}
 
 	return states;
+}
+
+bool State::isSolution() const {
+	//The board should be completely filled, and getEndpoints should return exactly the list of start points.
+	if(numEmpty() != 0) {
+		return false;
+	}
+	else {
+		std::vector<std::array<size_t, 2>> endpoints;
+		getEndpoints(endpoints);
+		for(auto iter = colorStarts.begin(); iter != colorStarts.end(); ++iter) {
+			std::array<size_t, 2> point = iter->second;
+			auto loc = std::find(endpoints.begin(), endpoints.end(), point);
+			if(loc == endpoints.end()) { //Couldn't find the start point
+				return false;
+			}
+		}
+		return true;
+	}
 }

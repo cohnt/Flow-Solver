@@ -52,6 +52,7 @@ public:
 	Colors::ColorsEnum* const & operator[](const size_t) const;
 
 	std::vector<State*> next() const;
+	bool isSolution() const;
 };
 
 #endif
