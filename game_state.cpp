@@ -50,7 +50,7 @@ State::State(size_t rows_in, size_t cols_in, std::vector<std::string> lines) : r
 		}
 	}
 }
-State::State(const std::string & fname) {
+State::State(const std::string & fname) : rows(0), cols(0), board(nullptr) {
 	std::ifstream in(fname.c_str());
 
 	in >> rows;
