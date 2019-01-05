@@ -66,15 +66,21 @@ void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
 
 	for(size_t i=0; i<rows; ++i) {
 		for(size_t j=0; j<cols; ++j) {
-			if(board[i][j] != Colors::empty
-				&& !(colorStarts[board[i][j]][0] != i && colorStarts[board[i][j]][1] != j)
-				&& !(colorEnds[board[i][j]][0] != i && colorEnds[board[i][j]][1] != j)
-				&& isEndpoint(i, j)) {
-				foundEndpoint[board[i][j]] = true;
-				endpoints.push_back(std::array<size_t, 2>{i, j});
+			if(board[i][j] == Colors::empty && isEndpoint(i, j)) {
+				if(!(colorStarts[board[i][j]][0] != i && colorStarts[board[i][j]][1] != j)
+					&& !(colorEnds[board[i][j]][0] != i && colorEnds[board[i][j]][1] != j)) {
+					foundEndpoint[board[i][j]] = true;
+					endpoints.push_back(std::array<size_t, 2>{i, j});
+				}
 			}
 		}
 	}
+
+	std::cout << "Raw endpoints list: ";
+	for(size_t i=0; i<endpoints.size(); ++i) {
+		std::cout << '(' << endpoints[i][0] << ',' << endpoints[i][1] << ") ";
+	}
+	std::cout << std::endl;
 
 	for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
 		auto color = *iter;
@@ -82,6 +88,13 @@ void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
 			endpoints.push_back(colorStarts[color]);
 		}
 	}
+	std::cout << "Final endpoints list: ";
+	for(size_t i=0; i<endpoints.size(); ++i) {
+		std::cout << '(' << endpoints[i][0] << ',' << endpoints[i][1] << ") ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "\n\n\n";
 }
 
 State::State(size_t rows_in, size_t cols_in, std::vector<std::string> lines) : rows(rows_in), cols(cols_in), board(nullptr) {
