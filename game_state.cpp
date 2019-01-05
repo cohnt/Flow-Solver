@@ -6,6 +6,8 @@
 
 #include "game_state.h"
 
+std::unordered_set<Colors::ColorsEnum> State::boardColors;
+
 void State::makeEmptyBoard(size_t rows_in, size_t cols_in) {
 	//Delete the old board if it exists
 	if(board != nullptr) {
@@ -29,10 +31,6 @@ void State::deleteBoard() {
 	board = nullptr;
 }
 
-State::State(size_t rows_in, size_t cols_in) : rows(rows_in), cols(cols_in), board(nullptr) {
-	//
-	makeEmptyBoard(rows, cols);
-}
 State::State(size_t rows_in, size_t cols_in, std::vector<std::string> lines) : rows(rows_in), cols(cols_in), board(nullptr) {
 	makeEmptyBoard(rows, cols);
 
@@ -46,6 +44,10 @@ State::State(size_t rows_in, size_t cols_in, std::vector<std::string> lines) : r
 			}
 			else {
 				board[i][j] = Colors::empty;
+			}
+
+			if(board[i][j] != Colors::empty) {
+				boardColors.insert(board[i][j]);
 			}
 		}
 	}
@@ -76,6 +78,7 @@ State::State(const State & other) : rows(other.getRows()), cols(other.getCols())
 	for(size_t i=0; i<rows; ++i) {
 		for(size_t j=0; j<cols; ++j) {
 			board[i][j] = other[i][j];
+			//No need to adjust boardColors, because boardColors is static
 		}
 	}
 }
@@ -88,6 +91,7 @@ State & State::operator=(const State & other) {
 		for(size_t i=0; i<rows; ++i) {
 			for(size_t j=0; j<cols; ++j) {
 				board[i][j] = other[i][j];
+				//No need to adjust boardColors, because boardColors is static
 			}
 		}
 	}
@@ -110,6 +114,10 @@ size_t State::numEmpty() const {
 		}
 	}
 	return total;
+}
+std::vector<Colors::ColorsEnum> State::getColors() const {
+	//
+	return std::vector<Colors::ColorsEnum>(boardColors.begin(), boardColors.end());
 }
 
 void State::print() const {

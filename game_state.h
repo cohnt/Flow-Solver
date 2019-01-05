@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <unordered_set>
 #include "game_defns.h"
 
 class State {
@@ -14,9 +15,9 @@ private:
 	Colors::ColorsEnum** board;
 	void makeEmptyBoard(size_t, size_t);
 	void deleteBoard();
+	static std::unordered_set<Colors::ColorsEnum> boardColors;
 
 public:
-	State(size_t, size_t);
 	State(size_t, size_t, std::vector<std::string>);
 	State(const std::string &);
 
@@ -27,6 +28,7 @@ public:
 	size_t getRows() const;
 	size_t getCols() const;
 	size_t numEmpty() const;
+	std::vector<Colors::ColorsEnum> getColors() const;
 
 	void print() const;
 	void writeToFile(const std::string &) const;
