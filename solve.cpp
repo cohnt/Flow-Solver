@@ -56,7 +56,11 @@ int main(int argc, char** argv) {
 			break;
 	};
 
-	std::cout << std::endl;
+	if(endState == nullptr) {
+		return 0;
+	}
+
+	std::cout << std::endl << "Solution:" << std::endl;
 	endState->print();
 
 	delete endState;

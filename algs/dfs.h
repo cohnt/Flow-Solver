@@ -3,6 +3,7 @@
 
 #include <stack>
 #include <iostream>
+#include <unistd.h>
 
 #include "../game_defns.h"
 #include "../game_state.h"
@@ -16,6 +17,9 @@ namespace dfs {
 			State* foo = states.top();
 			states.pop();
 
+			std::cout << "\033[2J" << "Checking:\n";
+			foo->print();
+			usleep(1000*500);
 			if(foo->isSolution()) {
 				while(!states.empty()) {
 					State* top = states.top();
@@ -34,7 +38,7 @@ namespace dfs {
 		}
 
 		std::cout << "No solution found!" << std::endl;
-		return startState;
+		return nullptr;
 	}
 };
 
