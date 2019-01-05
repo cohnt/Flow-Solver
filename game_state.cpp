@@ -36,25 +36,29 @@ void State::deleteBoard() {
 	delete[] board;
 	board = nullptr;
 }
-bool State::isEndpoint(size_t row, size_t col) const {
-	short numNeighbors = 0;
+short State::numNeighbors(size_t row, size_t col) const {
+	short num = 0;
 
 	// std::cout << "Checking if " << row << "," << col << " is an endpoint." << std::endl;
 
 	if(row > 0) {
-		numNeighbors += (board[row][col] == board[row-1][col]);
+		num += (board[row][col] == board[row-1][col]);
 	}
 	if(row+1 < rows) {
-		numNeighbors += (board[row][col] == board[row+1][col]);
+		num += (board[row][col] == board[row+1][col]);
 	}
 	if(col > 0) {
-		numNeighbors += (board[row][col] == board[row][col-1]);
+		num += (board[row][col] == board[row][col-1]);
 	}
 	if(col+1 < cols) {
-		numNeighbors += (board[row][col] == board[row][col+1]);
+		num += (board[row][col] == board[row][col+1]);
 	}
 
-	return numNeighbors == 0 || numNeighbors == 1;
+	return num;
+}
+bool State::isEndpoint(size_t row, size_t col) const {
+	short num = numNeighbors(row, col);
+	return num == 0 || num == 1;
 }
 void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
 	std::unordered_map<Colors::ColorsEnum, bool> foundEndpoint;
@@ -80,25 +84,27 @@ void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
 		}
 	}
 
-	std::cout << "Raw endpoints list: ";
-	for(size_t i=0; i<endpoints.size(); ++i) {
-		std::cout << '(' << endpoints[i][0] << ',' << endpoints[i][1] << ") ";
-	}
-	std::cout << std::endl;
+	// std::cout << "Raw endpoints list: ";
+	// for(size_t i=0; i<endpoints.size(); ++i) {
+	// 	std::cout << '(' << endpoints[i][0] << ',' << endpoints[i][1] << ") ";
+	// }
+	// std::cout << std::endl;
 
 	for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
 		auto color = *iter;
 		if(!foundEndpoint[color]) {
-			endpoints.push_back(colorStarts[color]);
+			std::array<size_t, 2> end = colorEnds[color];
+			if(numNeighbors(end[0], end[1]) == 0) {
+				endpoints.push_back(colorStarts[color]);
+			}
 		}
 	}
-	std::cout << "Final endpoints list: ";
-	for(size_t i=0; i<endpoints.size(); ++i) {
-		std::cout << '(' << endpoints[i][0] << ',' << endpoints[i][1] << ") ";
-	}
-	std::cout << std::endl;
-
-	std::cout << "\n\n\n";
+	// std::cout << "Final endpoints list: ";
+	// for(size_t i=0; i<endpoints.size(); ++i) {
+	// 	std::cout << '(' << endpoints[i][0] << ',' << endpoints[i][1] << ") ";
+	// }
+	// std::cout << std::endl;
+	// std::cout << "\n\n\n";
 }
 
 State::State(size_t rows_in, size_t cols_in, std::vector<std::string> lines) : rows(rows_in), cols(cols_in), board(nullptr) {
@@ -316,20 +322,13 @@ std::vector<State*> State::next() const {
 }
 
 bool State::isSolution() const {
-	//The board should be completely filled, and getEndpoints should return exactly the list of start points.
+	//The board should be completely filled, and getEndpoints should return an empty list
 	if(numEmpty() != 0) {
 		return false;
 	}
 	else {
 		std::vector<std::array<size_t, 2>> endpoints;
 		getEndpoints(endpoints);
-		for(auto iter = colorStarts.begin(); iter != colorStarts.end(); ++iter) {
-			std::array<size_t, 2> point = iter->second;
-			auto loc = std::find(endpoints.begin(), endpoints.end(), point);
-			if(loc == endpoints.end()) { //Couldn't find the start point
-				return false;
-			}
-		}
-		return true;
+		return endpoints.empty();
 	}
 }

@@ -18,6 +18,7 @@ private:
 	
 	void makeEmptyBoard(size_t, size_t);
 	void deleteBoard();
+	short numNeighbors(size_t, size_t) const;
 	bool isEndpoint(size_t, size_t) const;
 	void getEndpoints(std::vector<std::array<size_t, 2>> &) const;
 

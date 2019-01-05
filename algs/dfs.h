@@ -17,7 +17,8 @@ namespace dfs {
 			State* foo = states.top();
 			states.pop();
 
-			std::cout << /*"\033[2J" << */"Checking:\n";
+			std::cout << /*"\033[2J" << */"Checking:\n\n";
+			// usleep(1000*500);
 			foo->print();
 			if(foo->isSolution()) {
 				while(!states.empty()) {
@@ -29,7 +30,6 @@ namespace dfs {
 			}
 			else {
 				std::vector<State*> bar = foo->next();
-				usleep(1000*500);
 				for(size_t i=0; i<bar.size(); ++i) {
 					states.push(bar[i]);
 				}
