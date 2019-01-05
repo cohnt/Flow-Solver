@@ -9,4 +9,5 @@ Config file format:
 
 Available algorithms:
 
-* basic_search
+* dfs
+* bfs

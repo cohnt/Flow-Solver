@@ -1,6 +1,8 @@
 #include <iostream>
 #include <unordered_map>
 #include <string>
+#include <stack>
+#include <queue>
 
 #include "game_defns.h"
 #include "game_state.h"
