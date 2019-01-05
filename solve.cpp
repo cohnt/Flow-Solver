@@ -7,8 +7,14 @@
 #include "game_defns.h"
 #include "game_state.h"
 #include "tree/tree.h"
+#include "algs/dfs.h"
+
+struct ConfigStruct {
+	AlgorithmNames::AlgorithmsEnum alg;
+};
 
 bool checkFormat(const State &);
+void loadConfigFile(ConfigStruct &, const std::string &);
 
 int main(int argc, char** argv) {
 	if(argc != 3) {
@@ -27,6 +33,9 @@ int main(int argc, char** argv) {
 	if(!checkFormat(*startState)) {
 		exit(1);
 	}
+
+	ConfigStruct config;
+	loadConfigFile(config, argv[2]);
 
 	startState->print();
 
@@ -72,4 +81,14 @@ bool checkFormat(const State & state) {
 	}
 
 	return true;
+}
+
+//Read in a config file
+void loadConfigFile(ConfigStruct & config, const std::string & fname) {
+	std::ifstream in(fname.c_str());
+
+	std::string algName;
+	in >> algName;
+
+	config.alg = AlgorithmNames::stringToAlgorithmNames.at(algName);
 }
