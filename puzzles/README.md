@@ -14,7 +14,7 @@ On the first line, the first number is the number of rows, and the second number
 
 To represent a flow source of a given color, use the color character below.
 
-To represent a blank space, use any non-newline character (I would recommend something like `.` or `+`).
+To represent a blank space, use any non-whitespace character (I would recommend something like `.` or `+`).
 
 Sample state/solution file:
 
