@@ -66,7 +66,7 @@ void State::getEndpoints(std::vector<std::array<size_t, 2>> & endpoints) const {
 
 	for(size_t i=0; i<rows; ++i) {
 		for(size_t j=0; j<cols; ++j) {
-			if(board[i][j] == Colors::empty && isEndpoint(i, j)) {
+			if(board[i][j] != Colors::empty && isEndpoint(i, j)) {
 				if(!(colorStarts[board[i][j]][0] != i && colorStarts[board[i][j]][1] != j)
 					&& !(colorEnds[board[i][j]][0] != i && colorEnds[board[i][j]][1] != j)) {
 					foundEndpoint[board[i][j]] = true;
