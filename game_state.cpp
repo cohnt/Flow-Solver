@@ -7,6 +7,8 @@
 #include "game_state.h"
 
 std::unordered_set<Colors::ColorsEnum> State::boardColors;
+std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> State::colorStarts;
+std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> State::colorEnds;
 
 void State::makeEmptyBoard(size_t rows_in, size_t cols_in) {
 	//Delete the old board if it exists
@@ -96,6 +98,35 @@ State & State::operator=(const State & other) {
 		}
 	}
 	return *this;
+}
+
+void State::initializeColorStarts() {
+	if(colorStarts.size() != 0) {
+		assert(false && "You already initialized colorStarts!");
+	}
+	else if(colorEnds.size() != 0) {
+		assert(false && "You already initialized colorEnds!");
+	}
+	else if(boardColors.size() == 0) {
+		assert(false && "You haven't initialized boardColors yet!");
+	}
+
+	Colors::ColorsEnum color;
+	for(size_t i=0; i<rows; ++i) {
+		for(size_t j=0; j<cols; ++j) {
+			color = board[i][j];
+			if(color != Colors::empty) {
+				if(colorStarts.find(color) == colorStarts.end()) {
+					colorStarts[color] = std::pair<size_t, size_t>(i, j);
+					// std::cout << Colors::colorToChar.at(color) << " starts at " << i << "," << j << std::endl;
+				}
+				else {
+					colorEnds[color] = std::pair<size_t, size_t>(i, j);
+					// std::cout << Colors::colorToChar.at(color) << " ends at " << i << "," << j << std::endl;
+				}
+			}
+		}
+	}
 }
 
 size_t State::getRows() const {

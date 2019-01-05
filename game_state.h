@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include <unordered_set>
+#include <unordered_map>
 #include "game_defns.h"
 
 class State {
@@ -16,6 +17,8 @@ private:
 	void makeEmptyBoard(size_t, size_t);
 	void deleteBoard();
 	static std::unordered_set<Colors::ColorsEnum> boardColors;
+	static std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> colorStarts;
+	static std::unordered_map<Colors::ColorsEnum, std::pair<size_t, size_t>> colorEnds;
 
 public:
 	State(size_t, size_t, std::vector<std::string>);
@@ -24,6 +27,8 @@ public:
 	~State();
 	State(const State &);
 	State & operator=(const State &);
+
+	void initializeColorStarts();
 
 	size_t getRows() const;
 	size_t getCols() const;

@@ -19,6 +19,8 @@ int main(int argc, char** argv) {
 	State startState(argv[1]);
 	std::cout << "Successfully opened puzzle " << argv[1] << std::endl;
 
+	startState.initializeColorStarts();
+
 	// size_t rows = startState.rows();
 	// size_t cols = startState.cols();
 
@@ -29,6 +31,11 @@ int main(int argc, char** argv) {
 	Tree<State> tree(startState);
 
 	startState.print();
+
+	// auto colors = startState.getColors();
+	// for(auto iter = colors.begin(); iter != colors.end(); ++iter) {
+	// 	std::cout << Colors::colorToChar.at(*iter) << std::endl;
+	// }
 
 	return 0;
 }
