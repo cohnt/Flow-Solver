@@ -5,10 +5,12 @@
 #include <iostream>
 #include <unistd.h>
 
+#include "flow_alg.h"
 #include "../game_defns.h"
 #include "../game_state.h"
 
-namespace simple_astar {
+class SimpleAstar : public FlowAlg {
+public:
 	class Compare {
 	public:
 		bool operator() (State* l, State* r) {
@@ -17,7 +19,7 @@ namespace simple_astar {
 			return lScore > rScore;
 		}
 	};
-	State* solve(State* startState) {
+	virtual State* solve(State* startState) const {
 		std::priority_queue<State*, std::vector<State*>, Compare> states;
 		states.push(startState);
 

@@ -5,11 +5,13 @@
 #include <iostream>
 #include <unistd.h>
 
+#include "flow_alg.h"
 #include "../game_defns.h"
 #include "../game_state.h"
 
-namespace bfs {
-	State* solve(State* startState) {
+class Bfs : public FlowAlg {
+public:
+	virtual State* solve(State* startState) const {
 		std::queue<State*> states;
 		states.push(startState);
 

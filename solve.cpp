@@ -8,6 +8,7 @@
 #include "game_state.h"
 #include "tree/tree.h"
 
+#include "algs/flow_alg.h"
 #include "algs/dfs.h"
 #include "algs/bfs.h"
 #include "algs/simple_astar.h"
@@ -50,20 +51,24 @@ int main(int argc, char** argv) {
 
 	State* endState = nullptr;
 
+	FlowAlg* solver = nullptr;
+
 	switch(config.alg) {
 		case Algorithms::dfs:
-			endState = dfs::solve(startState);
+			solver = new Dfs();
 			break;
 		case Algorithms::bfs:
-			endState = bfs::solve(startState);
+			solver = new Bfs();
 			break;
 		case Algorithms::simple_astar:
-			endState = simple_astar::solve(startState);
+			solver = new SimpleAstar();
 			break;
 		default:
 			exit(1); //TODO
 			break;
 	};
+
+	endState = solver->solve(startState);
 
 	if(endState == nullptr) {
 		return 0;
@@ -73,6 +78,7 @@ int main(int argc, char** argv) {
 	endState->print();
 
 	delete endState;
+	delete solver;
 
 	return 0;
 }
