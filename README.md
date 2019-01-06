@@ -11,3 +11,4 @@ Available algorithms:
 
 * dfs
 * bfs
+* simple_astar
