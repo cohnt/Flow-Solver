@@ -10,6 +10,7 @@
 
 #include "algs/dfs.h"
 #include "algs/bfs.h"
+#include "algs/simple_astar.h"
 
 struct ConfigStruct {
 	Algorithms::AlgorithmsEnum alg;
@@ -55,6 +56,9 @@ int main(int argc, char** argv) {
 			break;
 		case Algorithms::bfs:
 			endState = bfs::solve(startState);
+			break;
+		case Algorithms::simple_astar:
+			endState = simple_astar::solve(startState);
 			break;
 		default:
 			exit(1); //TODO

@@ -89,16 +89,19 @@ namespace Colors {
 namespace Algorithms {
 	enum AlgorithmsEnum : int {
 		bfs,
-		dfs
+		dfs,
+		simple_astar
 	};
 
 	const std::unordered_map<Algorithms::AlgorithmsEnum, std::string> algorithmNamesToString({
 		{Algorithms::bfs, "bfs"},
-		{Algorithms::dfs, "dfs"}
+		{Algorithms::dfs, "dfs"},
+		{Algorithms:simple_astar, "simple_astar"}
 	});
 	const std::unordered_map<std::string, Algorithms::AlgorithmsEnum> stringToAlgorithmNames({
 		{"bfs", Algorithms::bfs},
-		{"dfs", Algorithms::dfs}
+		{"dfs", Algorithms::dfs},
+		{"simple_astar", Algorithms::simple_astar}
 	});
 };
 

@@ -1,1 +1,1 @@
-bfs
+simple_astar
